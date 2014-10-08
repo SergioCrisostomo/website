@@ -59,6 +59,6 @@ module.exports = function(app){
 	app.get('/core/docs/:version', core, docs);
 
 	app.get('/core/guides', core, guides.index);
-	app.get('/core/guides/:guide', core, guides.article);
+	app.get('/core/:guides/:guide', core, guides.article);
 
 };
