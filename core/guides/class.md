@@ -35,24 +35,22 @@ Classes can contain functions within them in the same way that they can contain 
 
 ```js
 
-
 var Animal = new Class({
 	initialize: function(options){
 		this.options = options; //save our options.
 		//if the options specify that the animal
 		//is asleep when we create it, call sleep()
-		if(this.options.sleepOnStart) this.sleep();
+		if (this.options.sleepOnStart) this.sleep();
 		//else it's awake
 		else this.awake();
 	},
-	sleep: function() {
+	sleep: function(){
 		this.isAsleep = true;
 	},
 	awake: function(){
 		this.isAsleep = false;
 	}
 });
-
 ```
 
 
@@ -60,7 +58,6 @@ var Animal = new Class({
 Now we can instantiate our animal and have it go to sleep or wake up when we want:
 
 ```js
-
 
 var Cat = new Animal({
 	color: "black",
@@ -70,7 +67,6 @@ var Cat = new Animal({
 Cat.awake();
 alert(Cat.isAsleep);
 //-> alerts "false"
-
 ```
 
 
@@ -86,7 +82,6 @@ Classes can be extended to create more complex functionality. In previous exampl
 
 ```js
 
-
 var Animal = new Class({
 	initialize: function(options){
 		this.options = options;
@@ -99,13 +94,13 @@ var Mammal = new Class({
 	initialize: function(options){
 		//this executes the initialize() function in the Animal Class
 		//let's also pass the options to the parent's initialize function 
-		this.parent(options); 
-	
+		this.parent(options);
+
 		this.isWarmBlooded = true;
 		this.hasFur = true;
 		this.producesMilk = true;
 	},
-	sleep: function() {
+	sleep: function(){
 		this.isAsleep = true;
 	},
 	awake: function(){
@@ -119,11 +114,11 @@ var Mouse = new Class({
 
 var Cat = new Class({
 	Extends: Mammal,
-	initialize: function(options) {
+	initialize: function(options){
 		//call initialize of Mammal
 		//pass along any options for
 		//the Mammal and Animal classes
-		this.parent(options) 
+		this.parent(options)
 		this.hasClaws = true;
 		this.hasTail = true;
 		this.isCarnivorous = true;
@@ -154,7 +149,6 @@ Kitty.catchMouse(Mickey);
 
 alert(Mickey.isAlive);
 //->false
-
 ```
 
 
@@ -165,15 +159,14 @@ Note that in using *Extends* you extend the parent class into the child. It is p
 
 ```js
 
-
 //from the example above...
 var Cat = new Class({
 	Extends: Mammal,
-	initialize: function(options) {
+	initialize: function(options){
 		//call initialize of Mammal
 		//pass along any options for
 		//the Mammal and Animal classes
-		this.parent(options) 
+		this.parent(options)
 		this.hasClaws = true;
 		this.hasTail = true;
 		this.isCarnivorous = true;
@@ -197,7 +190,6 @@ Cat = new Class({
 		this.energy++;
 	}
 });
-
 ```
 
 
@@ -225,8 +217,8 @@ var Animal = new Class({
 
 //let's change it to include some additional functionality:
 Animal.implement({
-	eat: function() {
-		if(typeof this.energy == "undefined") this.energy = 0;
+	eat: function(){
+		if (typeof this.energy == "undefined") this.energy = 0;
 		this.energy++;
 	}
 });
@@ -242,13 +234,13 @@ Let's say that later we want to add the ability to pass in a starting value in t
 
 //let's let you pass in a starting value
 Animal.implement({
-	eat: function() {
-		if(typeof this.energy == "undefined") {
-		 if(typeof this.options.startingEnergy != "undefined") this.energy = this.options.startingEnergy;
-		 else this.energy = 0;
-		this.energy++;
-	}
-});
+			eat: function(){
+				if (typeof this.energy == "undefined"){
+					if (typeof this.options.startingEnergy != "undefined") this.energy = this.options.startingEnergy;
+					else this.energy = 0;
+					this.energy++;
+				}
+			});
 ```
 
 
@@ -258,7 +250,7 @@ Implement is used in MooTools mostly to extend classes that are in the "Native" 
 ```js
 
 String.implement({
-	alert: function() {
+	alert: function(){
 		alert(this);
 	}
 });
@@ -283,9 +275,9 @@ There's one other way to use implement that's pretty handy. You can create a cla
 
 //this is the same Mammal and Cat class as above
 var Carnivore = new Class({
-	isCarnivore : true,
-	energy : 0,
-	eat: function() {
+	isCarnivore: true,
+	energy: 0,
+	eat: function(){
 		this.energy++;
 	}
 });
@@ -293,7 +285,7 @@ var Carnivore = new Class({
 var Cat = new Class({
 	Extends: Mammal,
 	Implements: Carnivore,
-	initialize: function() {
+	initialize: function(){
 		this.parent() //call initialize of Mammal
 		this.hasClaws = true;
 		this.hasTail = true;
@@ -304,7 +296,6 @@ var Cat = new Class({
 		return mouse;
 	}
 });
-
 ```
 
 
@@ -343,14 +334,8 @@ Thingy = Thingy.extend({
 		alert('extended');
 	}
 });
-myClass.go(); /* alerts 'implemented'
+myClass.go();
+/* alerts 'implemented'
                  because extend only affects
                  new instances. */
 ```
-
-
-**NOTE: <del>There's a bug in MooTools 1.2 that prevents this example from working currently, but this is how it's *supposed* to work. Expect a patch soon that will restore this functionality. For now, implement does not retroactively affect instances</del> This bug does not affect Mootools 1.2.3.**
-
-Note that in general you shouldn't use implement for this purpose (to retroactively change all the instances of a class). It's very hard to predict how such a change will affect everything else that's instantiated. It's up to you to figure out when it is best for your purposes to do this sort of thing, but be careful as it can be difficult to predict consequences.
-
-
