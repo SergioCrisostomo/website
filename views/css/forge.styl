@@ -2,6 +2,17 @@
 #main, #sidebar
 	padding-top: 4em !important
 	padding-bottom: 1em !important
+	text-shadow none !important
+	input, select
+		text-transform: none !important
+		font-weight: 200 !important
+		line-height: 1em !important
+		font-size: 1.1em !important
+		max-width 8em
+	.horizontal-form li
+		padding-right 0.5em !important
+		#submit_filter
+			margin-right 0.5em
 
 #main
 	width: 69% !important
@@ -16,8 +27,8 @@
 	float: right !important
 	width: 25% !important
 	input[type="text"], input[type="password"]
-		width: 12em !important
-		font-size: .85em !important
+		width: 100% !important
+		max-width: 100% !important
 
 	h4
 		background: #5a5d60;
@@ -27,6 +38,9 @@
 		color: #ffffff !important
     a
     	color: #e5e8ed!important
+
+input[type="text"], input[type="password"], select
+	background-color: #ffffff !important
 
 #search
 	width: 12em !important
@@ -48,19 +62,24 @@
 	border-radius: 5px !important
 	color: #7d8aa3 !important
 	display: block !important
-	font-size: 1.1em !important
 	position: relative !important
-	font-size: 1em !important
+	font-size: 1.1em !important
 	cursor: pointer !important
 	border-radius: 3px !important
-	padding: .5em !important
+	padding: .35em !important
+	border none !important
+	&:active, &:focus
+		background-color #777571 !important
+
+#submit_filter
+	display: inline-block !important
 
 #login-form, #login-other, #sidebar ul
 	margin-left: 0px !important
 
-#login-form .input_submit
-    float: left !important
-    margin-top: .5em !important
+#login-form div.input_submit
+	float: left !important
+	margin: .5em 0 !important
 
 #search_submit input
 	margin-top: .5em !important
