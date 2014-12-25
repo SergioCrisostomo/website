@@ -6,6 +6,7 @@ var path = require('path');
 var compile = require('../lib/compile-md');
 var pkg = require('../package.json');
 var getFiles = require('../lib/getFiles');
+var sortModules = require('../lib/sortModules');
 var compareSEMVER = require('../lib/compareSEMVER');
 
 var args = process.argv;
@@ -75,7 +76,8 @@ function build(project, docsdir){
 		});
 
 		if (!intro) fs.writeFile(docsdir + '/content-' + version + '.html', placeholder);
-		// make file with toc for sidebar
+		// make file with toc for sidebar, and sort in correct order
+		toc = sortModules(project, toc);
 		fs.writeFile(docsdir + '/' + 'toc-' + version + '.json', JSON.stringify(toc, null, 2));
 	});
 
