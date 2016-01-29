@@ -25,15 +25,17 @@ build(project, docsdir);
 
 // fix path for sidebar toc anchor links
 function fixPath(mdFilePath, ver){
-	var fullPath = mdFilePath.slice(0, -3).split('/');
+	var fullPath = mdFilePath.slice(0, -3).split(path.sep);
 	var tocPath = fullPath.slice(fullPath.indexOf("Docs") + 1).join('/');
 	var version = ver.split('-')[1];
-	return project + '/docs/' + version + '/' + tocPath;
+	return [project, 'docs', version, tocPath].join('/');
 }
 
 function makeFileAndModuleName(path){
-	var subPath = path.split('/Docs')[1].slice(0, -3); // drop ".md" and get module name
-	return subPath.split('/').join('-');
+	var subPath = path.split(/[\/\\]Docs/)[1].slice(0, -3); // drop ".md" and get module name
+	var res = subPath.split(/[\/\\]/).join('-');
+	//console.log(path, res);
+	return res;
 }
 
 
